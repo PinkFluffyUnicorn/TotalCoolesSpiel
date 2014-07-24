@@ -20,9 +20,10 @@ namespace Vampir
             Texture tex = new Texture(path);
             _sprite = new Sprite(tex);
         }
-        
-        public void Update() {
-            _position.X +=1;
+
+        public void Update()
+        {
+            _position.X += 1;
             if (_position.X > 700) _position.X = 1;
         }
 
