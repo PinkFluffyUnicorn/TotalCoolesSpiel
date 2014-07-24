@@ -37,6 +37,9 @@ namespace Intro2D_02_Beispiel
         //  - WENN IHR DIESES PROJEKT WEITERVERWENDEN WOLLT, MÜSST IHR DIE VERWEISE (erster Teil) NEU HINZUFÜGEN
 
         // Wird für Programm ablauf benötigt
+
+        static Werwolf werwolf = new Werwolf("C:/Users/Sara/Documents/Vampire/Vampir/Vampir/Vampir/Graphiken/Monster.png"); 
+
         public static void Main()
         {
             // Erzeuge ein neues Fenster
