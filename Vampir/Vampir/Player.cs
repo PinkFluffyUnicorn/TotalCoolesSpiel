@@ -23,8 +23,16 @@ namespace Vampir
 
         public void Update()
         {
-            _position.X += 1;
-            if (_position.X > 700) _position.X = 1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+                _position.X -= 1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+                _position.X +=1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+                _position.Y +=1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+                _position.Y -= 1;
+            _position.X = (_position.X + 800) % 800;
+            _position.Y = (_position.Y + 600) % 600;
         }
 
         public void Draw(RenderWindow window)
