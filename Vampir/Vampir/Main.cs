@@ -38,14 +38,13 @@ namespace Intro2D_02_Beispiel
 
         // Wird für Programm ablauf benötigt
 
-        static Vampir.Werwolf werwolf = new Vampir.Werwolf("C:/Users/Sara/Documents/Vampire/Vampir/Vampir/Vampir/Graphiken/Monster.png"); 
+        //static Vampir.Werwolf monster = new Vampir.Werwolf("C:/Users/Sara/Documents/Vampire/Vampir/Vampir/Vampir/Graphiken/Monster.png"); 
 
         public static void Main()
         {
-            Vampir.Player player = new Vampir.Player("C:/Users/Uni/Desktop/Player.png");
-            //Monster monster = new Monster();
-
-
+           Vampir.Player player = new Vampir.Player("C:/Users/Uni/Documents/GitHub/Vampire/TotalCoolesSpiel/Vampir/Vampir/Graphiken/Player.png");
+            Vampir.Werwolf monster = new Vampir.Werwolf("C:/Users/Uni/Documents/GitHub/Vampire/TotalCoolesSpiel/Vampir/Vampir/Graphiken/Monster.png");
+            
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
 
@@ -58,10 +57,9 @@ namespace Intro2D_02_Beispiel
                 win.Clear();
                 player.Update();
                 player.Draw(win);
+                monster.update();
+                monster.Draw(win);
                 // Schauen ob Fenster geschlossen werden soll
-                win.Clear();
-                werwolf.update();
-                werwolf.Draw(win);
                 win.DispatchEvents();
                 win.Display();
             }
