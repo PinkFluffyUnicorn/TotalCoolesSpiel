@@ -42,6 +42,10 @@ namespace Intro2D_02_Beispiel
 
         public static void Main()
         {
+            Vampir.Player player = new Vampir.Player("C:/Users/Uni/Desktop/Player.png");
+            //Monster monster = new Monster();
+
+
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
 
@@ -51,6 +55,9 @@ namespace Intro2D_02_Beispiel
             // Das eigentliche Spiel
             while (win.IsOpen())
             {
+                win.Clear();
+                player.Update();
+                player.Draw(win);
                 // Schauen ob Fenster geschlossen werden soll
                 win.Clear();
                 werwolf.update();
