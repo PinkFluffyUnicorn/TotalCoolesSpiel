@@ -79,7 +79,9 @@
     <Compile Include="Main.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Map.cs" />
+    <Compile Include="Map.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Player.cs" />
     <Compile Include="Werwolf.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
