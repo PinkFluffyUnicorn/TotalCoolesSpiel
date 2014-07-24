@@ -43,7 +43,8 @@ namespace Intro2D_02_Beispiel
         public static void Main()
         {
            Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
-           Vampir.Werwolf monster = new Vampir.Werwolf("Graphiken/Monster.png");
+            Vampir.Werwolf monster = new Vampir.Werwolf("Graphiken/Monster.png");
+            //Vampir.Map map = new Vampir.Map("Graphiken/hintergrund.png");
             
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
@@ -59,6 +60,8 @@ namespace Intro2D_02_Beispiel
                 player.Draw(win);
                 monster.update();
                 monster.Draw(win);
+               // map.Update();
+                //map.Draw(win);
                 // Schauen ob Fenster geschlossen werden soll
                 win.DispatchEvents();
                 win.Display();
