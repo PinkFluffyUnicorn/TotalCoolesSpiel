@@ -35,7 +35,6 @@ namespace Vampir
         {
             if (position.Y > 500) position.Y = 0; 
             position.Y += 1;
-
         }
     }
 }
