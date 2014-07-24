@@ -42,8 +42,8 @@ namespace Intro2D_02_Beispiel
 
         public static void Main()
         {
-           Vampir.Player player = new Vampir.Player("C:/Users/Uni/Documents/GitHub/Vampire/TotalCoolesSpiel/Vampir/Vampir/Graphiken/Player.png");
-            Vampir.Werwolf monster = new Vampir.Werwolf("C:/Users/Uni/Documents/GitHub/Vampire/TotalCoolesSpiel/Vampir/Vampir/Graphiken/Monster.png");
+           Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
+           Vampir.Werwolf monster = new Vampir.Werwolf("Graphiken/Monster.png");
             
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
