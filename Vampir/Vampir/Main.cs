@@ -38,7 +38,7 @@ namespace Intro2D_02_Beispiel
 
         // Wird für Programm ablauf benötigt
 
-        static Werwolf werwolf = new Werwolf("C:/Users/Sara/Documents/Vampire/Vampir/Vampir/Vampir/Graphiken/Monster.png"); 
+        static Vampir.Werwolf werwolf = new Vampir.Werwolf("C:/Users/Sara/Documents/Vampire/Vampir/Vampir/Vampir/Graphiken/Monster.png"); 
 
         public static void Main()
         {
@@ -52,7 +52,11 @@ namespace Intro2D_02_Beispiel
             while (win.IsOpen())
             {
                 // Schauen ob Fenster geschlossen werden soll
+                win.Clear();
+                werwolf.update();
+                werwolf.Draw(win);
                 win.DispatchEvents();
+                win.Display();
             }
         }
 

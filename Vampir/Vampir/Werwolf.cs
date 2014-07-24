@@ -17,7 +17,7 @@ namespace Vampir
 
         public Werwolf(string Path)
         {
-            position = new Vector2f(0,0);
+            position = new Vector2f(200,200);
 
             Texture texture = new Texture(Path);
             sprite = new Sprite(texture);
