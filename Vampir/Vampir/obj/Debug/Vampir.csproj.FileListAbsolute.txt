@@ -1,2 +1,3 @@
 c:\users\sara\documents\visual studio 2012\Projects\Vampir\Vampir\bin\Debug\Vampir.exe.config
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Vampir.exe.config
+C:\Users\Uni\Documents\GitHub\Vampire\TotalCoolesSpiel\Vampir\Vampir\bin\Debug\Vampir.exe.config
