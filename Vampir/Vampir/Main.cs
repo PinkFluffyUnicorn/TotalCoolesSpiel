@@ -37,15 +37,24 @@ namespace Intro2D_02_Beispiel
         //  - WENN IHR DIESES PROJEKT WEITERVERWENDEN WOLLT, MÜSST IHR DIE VERWEISE (erster Teil) NEU HINZUFÜGEN
 
         // Wird für Programm ablauf benötigt
-
-        //static Vampir.Werwolf monster = new Vampir.Werwolf("C:/Users/Sara/Documents/Vampire/Vampir/Vampir/Vampir/Graphiken/Monster.png"); 
-
         public static void Main()
         {
-           Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
-            Vampir.Werwolf monster = new Vampir.Werwolf("Graphiken/Monster.png");
-            //Vampir.Map map = new Vampir.Map("Graphiken/hintergrund.png");
-            
+
+            //SPÄTER AUFRÄUMEN
+            Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
+            Vampir.Item item1 = new Vampir.Item("Graphiken/Monster.png", 1000f, 400f);
+            Vampir.Item item2 = new Vampir.Item("Graphiken/Monster.png", 1100f, 400f);
+            Vampir.Item item3 = new Vampir.Item("Graphiken/Monster.png", 1080f, 300f);
+            Vampir.Item item4 = new Vampir.Item("Graphiken/Monster.png", 680f, 400f);
+
+            Vampir.Map map = new Vampir.Map("C:/Users/Uni/Documents/GitHub/Vampire/TotalCoolesSpiel/Vampir/Vampir/Graphiken/hintergrund.png");
+            List<Vampir.Item> list = new List<Vampir.Item>();
+            list.Add(item1);
+            list.Add(item2);
+            list.Add(item3);
+            list.Add(item4);
+            //BIS HIER
+
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
 
@@ -55,16 +64,28 @@ namespace Intro2D_02_Beispiel
             // Das eigentliche Spiel
             while (win.IsOpen())
             {
-                win.Clear();
-                player.Update();
-                player.Draw(win);
-                monster.update();
-                monster.Draw(win);
-               // map.Update();
-                //map.Draw(win);
-                // Schauen ob Fenster geschlossen werden soll
+                // Tastatureingabe zu Bewegungsvektor
+                Vector2f move = movement();
+
+                //Prüfen ob Hindernis im weg is
+                if (check(player, move, list))
+                {
+                    win.Clear();
+                    map.Update(move);
+                    map.Draw(win);
+                    
+                    foreach (Vampir.Item item in list)
+                    {
+                        item.Update(move);
+                        item.Draw(win);
+                    }
+
+                    player.Update(move, list);
+                    player.Draw(win);
+                    win.Display();
+                }
                 win.DispatchEvents();
-                win.Display();
+
             }
         }
 
@@ -72,6 +93,33 @@ namespace Intro2D_02_Beispiel
         {
             // Fenster Schließen
             (sender as Window).Close();
+        }
+
+        static Vector2f movement()
+        {
+            Vector2f vec = new Vector2f(0, 0);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+                vec.X += 1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+                vec.X -= 1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+                vec.Y += 150;
+
+            return vec;
+        }
+
+        static bool check(Vampir.Player player, Vector2f move, List<Vampir.Item> list)
+        {
+            foreach (Vampir.Item item in list)
+            {
+                //Kollision von Rechtecken
+                if (player._position.X  - move.X < item._position.X + item.width &&
+                    item._position.X < player._position.X - move.X + player.width &&
+                    player._position.Y + System.Math.Min(-move.Y, player.jump.Y) < item._position.Y + item.height &&
+                    item._position.Y < player._position.Y + System.Math.Min(-move.Y, player.jump.Y) + player.height
+                    ) return false;
+            }
+            return true;
         }
     }
 }

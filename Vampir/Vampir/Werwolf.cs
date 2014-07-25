@@ -17,7 +17,7 @@ namespace Vampir
 
         public Werwolf(string Path)
         {
-            position = new Vector2f(200,200);
+            position = new Vector2f(1000,400);
 
             Texture texture = new Texture(Path);
             sprite = new Sprite(texture);
@@ -31,10 +31,9 @@ namespace Vampir
             window.Draw(sprite);
         }
 
-        public void update()
+        public void update(Vector2f vec, Vector2f player)
         {
-            if (position.Y > 500) position.Y = 0; 
-            position.Y += 1;
+            position.X += vec.X;
         }
     }
 }
