@@ -42,9 +42,14 @@ namespace Intro2D_02_Beispiel
 
         public static void Main()
         {
-           Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
+            Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
             Vampir.Werwolf monster = new Vampir.Werwolf("Graphiken/Monster.png");
-            //Vampir.Map map = new Vampir.Map("Graphiken/hintergrund.png");
+            Vampir.background background0 = new Vampir.background("Graphiken/Player.png");
+            Vampir.background background = new Vampir.background("Graphiken/hintergrund.png");
+            Vampir.Map map = new Vampir.Map();
+            for ( int i =0; i < 4; i++)
+                map.loadContent(new Vampir.background("Graphiken/hintergrund.png"));
+           // map.loadContent(background);
             
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
@@ -56,16 +61,30 @@ namespace Intro2D_02_Beispiel
             while (win.IsOpen())
             {
                 win.Clear();
+                map.Update(movement());
+                map.Draw(win);
                 player.Update();
                 player.Draw(win);
                 monster.update();
                 monster.Draw(win);
-               // map.Update();
-                //map.Draw(win);
+
                 // Schauen ob Fenster geschlossen werden soll
                 win.DispatchEvents();
                 win.Display();
             }
+        }
+
+        static Vector2f movement()
+        {
+            Vector2f vec = new Vector2f(0, 0);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+                vec.X += 1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+                vec.X -= 1;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+                vec.Y += 150;
+
+            return vec;
         }
 
         static void win_Closed(object sender, EventArgs e)

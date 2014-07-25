@@ -76,12 +76,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="background.cs" />
     <Compile Include="Main.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Map.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="Map.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Werwolf.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
