@@ -76,11 +76,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="background.cs" />
-=======
-    <Compile Include="Item.cs" />
->>>>>>> dd277458bbc1693d9c4846e22098f7d951a3b16e
+
     <Compile Include="Main.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
