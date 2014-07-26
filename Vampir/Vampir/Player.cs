@@ -21,7 +21,7 @@ namespace Vampir
             data.sprite = new Sprite(tex);
             data.width = tex.Size.X;
             data.height = tex.Size.Y;
-            data.position = new Vector2f(400, 400);;
+            data.position = new Vector2f(500, 400);;
         }
 
         public void Update(Vector2f vec, List<Item> list)

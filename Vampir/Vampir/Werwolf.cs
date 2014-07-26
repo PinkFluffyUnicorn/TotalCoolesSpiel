@@ -33,8 +33,8 @@ namespace Vampir
 
         public void move(List<Item> items)
         {
-            if (Game.check(data, new Vector2f(direction * Const.moveBackward, 0), items))
-                data.position.X += -direction * Const.moveBackward;
+            if (Game.check(data, new Vector2f(direction * Const.moveBackward * Const.monsterSpeedfac, 0), items))
+                data.position.X += -direction * Const.moveBackward * Const.monsterSpeedfac;
             else
             {
                 direction *= -1;

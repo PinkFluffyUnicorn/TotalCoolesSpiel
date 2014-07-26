@@ -62,7 +62,9 @@
     <Content Include="Graphiken\hintergrund.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Graphiken\Item.png" />
+    <Content Include="Graphiken\Item.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphiken\Monster.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

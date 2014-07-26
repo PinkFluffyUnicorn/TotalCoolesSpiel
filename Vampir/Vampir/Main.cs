@@ -58,7 +58,7 @@ namespace Vampir
             //BIS HIER
 
             // Erzeuge ein neues Fenster
-            RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
+            RenderWindow win = new RenderWindow(new VideoMode(1000, 600), "Mein erstes Fenster");
 
             // Achte darauf, ob Fenster geschlossen wird
             win.Closed += win_Closed;
