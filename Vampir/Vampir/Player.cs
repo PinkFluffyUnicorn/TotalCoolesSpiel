@@ -5,98 +5,89 @@ using System.Threading.Tasks;
 using SFML;
 using SFML.Window;
 using SFML.Graphics;
+using Vampir;
 
 namespace Vampir
 {
     class Player
     {
-
-        public Vector2f _position, jump;
-        Sprite _sprite;
-        public float width, height;
+        public Creature data;
         int jumpTime = 0;
 
         public Player(string path)
         {
-<<<<<<< HEAD
-            _position = new Vector2f(400, 300);
-=======
-            _position = new Vector2f(400, 400);
->>>>>>> dd277458bbc1693d9c4846e22098f7d951a3b16e
+            data = new Creature();
             Texture tex = new Texture(path);
-            _sprite = new Sprite(tex);
-
-            width = tex.Size.X;
-            height = tex.Size.Y;
+            data.sprite = new Sprite(tex);
+            data.width = tex.Size.X;
+            data.height = tex.Size.Y;
+            data.position = new Vector2f(500, 400);;
         }
 
-        public void Update(Vector2f vec, List<Vampir.Item> list)
+        public void Update(Vector2f vec, List<Item> list)
         {
-<<<<<<< HEAD
-            /*if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
-                _position.X -= 1;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
-                _position.X +=1;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-                _position.Y +=1;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-                _position.Y -= 1;
-            _position.X = (_position.X + 800) % 800;
-            _position.Y = (_position.Y + 600) % 600;*/
-=======
-            if (vec.Y > 0 && jumpTime < 1000000)
+            if (jumpTime == 0)
             {
-                    jump.Y = -vec.Y;
-                jumpTime += 200;
-            }
-            else
-            {
-                if (jump.Y < 0)
+                //wenn am fallend, kein sprung, sondern weiter fallen
+                if (Game.check(data, new Vector2f(0, -1), list))
                 {
-                    foreach (Vampir.Item item in list)
-                    {
-                        if (_position.X < item._position.X + item.width &&
-                            item._position.X < _position.X + width &&
-                            _position.Y + jump.Y + 1 < item._position.Y + item.height &&
-                            item._position.Y < _position.Y + jump.Y + 1 + height
-                            )
-                        {
-                            _position = _position + jump;
-                            jump.Y = 0;
-                            jumpTime = 0;
-                        }
-                    }
-                    if (jump.Y != 0) jump.Y += 1;
+                    data.position.Y += Const.jumpspeed;
                 }
                 else
                 {
-                    bool ground = false;
-                    foreach (Vampir.Item item in list)
+                    //Sprung starten
+                    if (vec.Y > 0)
                     {
-                        if (_position.X < item._position.X + item.width &&
-                            item._position.X < _position.X + width &&
-                            _position.Y + 1 < item._position.Y + item.height &&
-                            item._position.Y < _position.Y + 1 + height
-                            )
-                        {
-                            ground = true;
-                        }
-                    }
-                    if (!ground)
-                    {
-                        _position.Y = System.Math.Min(400, _position.Y + 1);
+                        jumpTime = Const.jumptime;
                     }
                 }
-                jumpTime--;
-                if (jumpTime == 1000000) jumpTime = 0;
             }
->>>>>>> dd277458bbc1693d9c4846e22098f7d951a3b16e
+
+            //Springen
+            if (jumpTime > Const.jumptime - (Const.jumpHeight / Const.jumpspeed))
+            {
+                //Überprüfen ob Platz nach oben ist
+                if (Game.check(data, new Vector2f(0, 1), list))
+                {
+                    data.position.Y -= Const.jumpspeed;
+                }
+                else
+                {
+                    //Wenn oben Hindernis, Zeit fürs Hochspringen überspringen
+                    //der gesamte Sprung wird dadurch leicht verkürzt
+                    jumpTime = (int)(Const.jumptime - (Const.jumpHeight / Const.jumpspeed));
+                }
+            }
+            else
+            {
+                //wieder runter kommen
+                if (jumpTime > 0 && jumpTime < (Const.jumpHeight / Const.jumpspeed))
+                {
+                    //falls Platz
+                    if (Game.check(data, new Vector2f(0, -1), list))
+                    {
+                        //fallen
+                        data.position.Y += Const.jumpspeed;
+                    }
+                    else
+                    {
+                        //sonst Sprung beenden
+                        jumpTime = 0;
+                    }
+                }
+            }
+            jumpTime = System.Math.Max(jumpTime - 1, 0);
+        }
+
+        public bool isJumping()
+        {
+            return jumpTime > 0;
         }
 
         public void Draw(RenderWindow window)
         {
-            _sprite.Position = _position + jump;
-            window.Draw(_sprite);
+            data.sprite.Position = data.position;
+            window.Draw(data.sprite);
         }
 
     }

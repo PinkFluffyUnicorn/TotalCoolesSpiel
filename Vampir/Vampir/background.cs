@@ -13,13 +13,13 @@ namespace Vampir
     class background
     {
 
-        float groundX = 0;
-        float groundY = 0;
+       // float groundX = 0;
+        //float groundY = 0;
         // ground speichert die Höhe, auf der das bild beginnt 
 
         Sprite sprite = new Sprite();
         public Vector2f startposition = new Vector2f(0, 0);
-        public Vector2f endposition = new Vector2f(0,0);
+        public Vector2f endposition = new Vector2f(0, 0);
         public float sizeX = 0;
         float sizeY = 0;
 

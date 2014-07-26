@@ -55,7 +55,7 @@ namespace Vampir
 
         public void Update(Vector2f movement)
         {
-            _position -= movement;
+            _position.X -= movement.X;
             if (array[index].endposition.X < _position.X && index < length -1)
             {
                 index++;
