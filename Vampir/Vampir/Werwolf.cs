@@ -11,33 +11,40 @@ namespace Vampir
 {
     class Werwolf
     {
+        Creature data;
+        float direction = 1;
 
-        Sprite sprite;
-        Vector2f position;
-
-        public Werwolf(string Path)
+        public Werwolf(string Path, Vector2f pos)
         {
-<<<<<<< HEAD
-            position = new Vector2f(300,200);
-=======
-            position = new Vector2f(1000,400);
->>>>>>> dd277458bbc1693d9c4846e22098f7d951a3b16e
-
-            Texture texture = new Texture(Path);
-            sprite = new Sprite(texture);
-
+            data = new Creature();
+            Texture tex = new Texture(Path);
+            data.sprite = new Sprite(tex);
+            data.width = tex.Size.X;
+            data.height = tex.Size.Y;
+            data.position = pos;
 
         }
 
         public void Draw(RenderWindow window)
         {
-            sprite.Position = position;
-            window.Draw(sprite);
+            data.sprite.Position = data.position;
+            window.Draw(data.sprite);
         }
 
-        public void update(Vector2f vec, Vector2f player)
+        public void move(List<Item> items)
         {
-            position.X += vec.X;
+            if (Game.check(data, new Vector2f(direction * Const.moveBackward, 0), items))
+                data.position.X += -direction * Const.moveBackward;
+            else
+            {
+                direction *= -1;
+            }
+                
+        }
+
+        public void update(Vector2f vec)
+        {
+            data.position.X += vec.X;
         }
     }
 }

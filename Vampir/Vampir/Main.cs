@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Window;
 using SFML.Graphics;
 
-namespace Intro2D_02_Beispiel
+namespace Vampir
 {
     class Game
     {
@@ -39,34 +39,24 @@ namespace Intro2D_02_Beispiel
         // Wird für Programm ablauf benötigt
         public static void Main()
         {
-<<<<<<< HEAD
-            Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
-            Vampir.Werwolf monster = new Vampir.Werwolf("Graphiken/Monster.png");
-            Vampir.background background0 = new Vampir.background("Graphiken/Player.png");
-            Vampir.background background = new Vampir.background("Graphiken/hintergrund.png");
             Vampir.Map map = new Vampir.Map();
             for ( int i =0; i < 4; i++)
                 map.loadContent(new Vampir.background("Graphiken/hintergrund.png"));
            // map.loadContent(background);
-            
-=======
 
             //SPÄTER AUFRÄUMEN
-            Vampir.Player player = new Vampir.Player("Graphiken/Player.png");
-            Vampir.Item item1 = new Vampir.Item("Graphiken/Monster.png", 1000f, 400f);
-            Vampir.Item item2 = new Vampir.Item("Graphiken/Monster.png", 1100f, 400f);
-            Vampir.Item item3 = new Vampir.Item("Graphiken/Monster.png", 1080f, 300f);
-            Vampir.Item item4 = new Vampir.Item("Graphiken/Monster.png", 680f, 400f);
+            Player player = new Player("Graphiken/Player.png");
+            Werwolf monster = new Werwolf("Graphiken/Monster.png", new Vector2f(1500,400));
+            float[,] items = new float[,] {{1000,400},{1100,400},{1080,300},{680,200},
+            {2000,400},{2000,300},{2000,200},{1500,299},{2100,300},{2200,400}};
 
-            Vampir.Map map = new Vampir.Map("C:/Users/Uni/Documents/GitHub/Vampire/TotalCoolesSpiel/Vampir/Vampir/Graphiken/hintergrund.png");
             List<Vampir.Item> list = new List<Vampir.Item>();
-            list.Add(item1);
-            list.Add(item2);
-            list.Add(item3);
-            list.Add(item4);
+            for (int i = 0; i < items.GetLength(0); i++)
+            {
+                list.Add(new Item("Graphiken/Item.png", items[i, 0], items[i,  1]));
+            }
             //BIS HIER
 
->>>>>>> dd277458bbc1693d9c4846e22098f7d951a3b16e
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(800, 600), "Mein erstes Fenster");
 
@@ -76,26 +66,23 @@ namespace Intro2D_02_Beispiel
             // Das eigentliche Spiel
             while (win.IsOpen())
             {
-<<<<<<< HEAD
-                win.Clear();
-                map.Update(movement());
-                map.Draw(win);
-                player.Update();
-                player.Draw(win);
-                monster.update();
-                monster.Draw(win);
-
-                // Schauen ob Fenster geschlossen werden soll
-=======
                 // Tastatureingabe zu Bewegungsvektor
                 Vector2f move = movement();
+                if (player.isJumping() || !check(player.data, new Vector2f(0, 1), list))
+                    move.Y = 0;
 
                 //Prüfen ob Hindernis im weg is
-                if (check(player, move, list))
+                if (!check(player.data, new Vector2f(move.X, 0), list))
+                    move.X = 0;
+
+                monster.move(list);
+
                 {
                     win.Clear();
                     map.Update(move);
                     map.Draw(win);
+                    monster.update(move);
+                    
                     
                     foreach (Vampir.Item item in list)
                     {
@@ -105,9 +92,9 @@ namespace Intro2D_02_Beispiel
 
                     player.Update(move, list);
                     player.Draw(win);
+                    monster.Draw(win);
                     win.Display();
                 }
->>>>>>> dd277458bbc1693d9c4846e22098f7d951a3b16e
                 win.DispatchEvents();
 
             }
@@ -117,11 +104,11 @@ namespace Intro2D_02_Beispiel
         {
             Vector2f vec = new Vector2f(0, 0);
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
-                vec.X += 1;
+                vec.X = Const.moveBackward;
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
-                vec.X -= 1;
+                vec.X = Const.moveForward;
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-                vec.Y += 150;
+                vec.Y = Const.jumpHeight;
 
             return vec;
         }
@@ -132,30 +119,21 @@ namespace Intro2D_02_Beispiel
             (sender as Window).Close();
         }
 
-        static Vector2f movement()
+        public static bool check(Creature player, Vector2f move, List<Item> list)
         {
-            Vector2f vec = new Vector2f(0, 0);
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
-                vec.X += 1;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
-                vec.X -= 1;
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-                vec.Y += 150;
+            if (player.position.Y - move.Y > Const.groundHeight)
+                return false;
 
-            return vec;
-        }
-
-        static bool check(Vampir.Player player, Vector2f move, List<Vampir.Item> list)
-        {
-            foreach (Vampir.Item item in list)
+            foreach (Item item in list)
             {
                 //Kollision von Rechtecken
-                if (player._position.X  - move.X < item._position.X + item.width &&
-                    item._position.X < player._position.X - move.X + player.width &&
-                    player._position.Y + System.Math.Min(-move.Y, player.jump.Y) < item._position.Y + item.height &&
-                    item._position.Y < player._position.Y + System.Math.Min(-move.Y, player.jump.Y) + player.height
+                if (player.position.X  - move.X < item._position.X + item.width &&
+                    item._position.X < player.position.X - move.X + player.width &&
+                    player.position.Y - move.Y < item._position.Y + item.height &&
+                    item._position.Y < player.position.Y - move.Y + player.height
                     ) return false;
             }
+
             return true;
         }
     }
