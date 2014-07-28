@@ -11,10 +11,10 @@ namespace Vampir
 {
     class Const
     {
-        public static float jumpHeight = 150f;
+        public static float jumpHeight = 250f;
         public static int jumptime = 500;
         public static float jumpspeed = 1f;
-        public static float groundHeight = 400f;
+        public static float groundHeight = 580f;
         static float moveSpeed = 1f;
         public static float monsterSpeedfac = 0.7f;
         public static float moveForward = -moveSpeed;

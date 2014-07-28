@@ -11,15 +11,13 @@ namespace Vampir
 {
     class Item : Thing
     {
-
-        public Item(string path, float X, float Y)
+        public Item(string path, float X, float Y) : base(path, X, Y)
         {
-            position = new Vector2f(X, Y);
-            Texture tex = new Texture(path);
-            sprite = new Sprite(tex);
+        }
 
-            width = tex.Size.X;
-            height = tex.Size.Y;
+        public Item(string path, Item item, int dir) : base(path, item, dir)
+        {
+
         }
     }
 }

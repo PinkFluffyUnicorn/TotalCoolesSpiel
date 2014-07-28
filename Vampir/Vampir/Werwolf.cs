@@ -14,14 +14,9 @@ namespace Vampir
 
         float direction = 1;
 
-        public Werwolf(string Path, Vector2f pos)
+        public Werwolf(string path, float X, float Y)
+            : base(path, X, Y)
         {
-            Texture tex = new Texture(Path);
-            sprite = new Sprite(tex);
-            width = tex.Size.X;
-            height = tex.Size.Y;
-            position = pos;
-
         }
 
         public void move(List<Thing> items, Vector2f move, float roundspeed)
