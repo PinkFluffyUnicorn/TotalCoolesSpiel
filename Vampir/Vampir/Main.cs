@@ -61,6 +61,9 @@ namespace Vampir
             mList.Add(monster);
             //BIS HIER
 
+            GameTime time = new GameTime();
+            time.Start();
+
             // Erzeuge ein neues Fenster
             RenderWindow win = new RenderWindow(new VideoMode(1000, 600), "Mein erstes Fenster");
 
@@ -70,14 +73,22 @@ namespace Vampir
             // Das eigentliche Spiel
             while (win.IsOpen())
             {
+                time.Update();
+
+                float dings = (float)time.EllapsedTime.TotalMilliseconds/2.5;
+
                 // Tastatureingabe zu Bewegungsvektor
                 Vector2f move = movement();
                 if (player.isJumping() || !check(player, new Vector2f(0, 1), list))
                     move.Y = 0;
+                else
+                    move.Y *= dings;
 
                 //Prüfen ob Hindernis im weg is
                 if (!check(player, new Vector2f(move.X, 0), list))
                     move.X = 0;
+                else
+                    move.X *= dings;
 
                 monster.move(list);
                 win.Clear();
