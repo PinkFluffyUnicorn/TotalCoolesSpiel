@@ -42,17 +42,15 @@ namespace Vampir
         static List<Thing> mList = new List<Thing>();
         static Map map;
         static Player player;
+        static Levels level = new Levels();
 
         public static void Main()
         {
             Texture tex = new Texture("Graphiken/200se.png");
             Sprite sprite = new Sprite(tex);
             sprite.Position = new Vector2f(0, 0);
-            Levels level = new Levels();
-            map = level.levels[0].map;
-            player = level.levels[0].player;
-            list = level.levels[0].list;
-            mList = level.levels[0].mList;
+            
+            loadLevel();
             /*
             map = new Map();
             for ( int i =0; i < 4; i++)
@@ -79,7 +77,7 @@ namespace Vampir
             time.Start();
 
             // Erzeuge ein neues Fenster
-            RenderWindow win = new RenderWindow(new VideoMode(1000, 600), "Mein erstes Fenster");
+            RenderWindow win = new RenderWindow(new VideoMode(Const.winWidth, Const.winHeight), "Mein erstes Fenster");
 
             // Achte darauf, ob Fenster geschlossen wird
             win.Closed += win_Closed;
@@ -94,9 +92,14 @@ namespace Vampir
                 win.Clear();
                 if (Update(move, win, dings))
                 {
-                    win.Draw(sprite);
+                    //win.Draw(sprite);
+                    loadLevel();
                 }
-                win.Display();
+                else
+                {
+                    win.Display();
+                }
+                
                 win.DispatchEvents();
             }
         }
@@ -170,6 +173,15 @@ namespace Vampir
                 return true;
             }
             return false;
+        }
+
+        static void loadLevel()
+        {
+            level = new Levels();
+            map = level.levels[0].map;
+            player = level.levels[0].player;
+            list = level.levels[0].list;
+            mList = level.levels[0].mList;
         }
     }
 }

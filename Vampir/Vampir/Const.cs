@@ -11,6 +11,8 @@ namespace Vampir
 {
     class Const
     {
+        public static uint winHeight = 600;
+        public static uint winWidth = 1000;
         public static float jumpHeight = 250f;
         public static int jumptime = 500;
         public static float jumpspeed = 1f;
