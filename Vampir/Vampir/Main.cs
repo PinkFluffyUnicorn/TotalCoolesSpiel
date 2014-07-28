@@ -37,6 +37,8 @@ namespace Vampir
         //  - WENN IHR DIESES PROJEKT WEITERVERWENDEN WOLLT, MÜSST IHR DIE VERWEISE (erster Teil) NEU HINZUFÜGEN
 
         // Wird für Programm ablauf benötigt
+
+        public static float dings;
         public static void Main()
         {
             Vampir.Map map = new Vampir.Map();
@@ -71,14 +73,12 @@ namespace Vampir
             {
                 time.Update();
 
-                float dings = (float)time.EllapsedTime.TotalMilliseconds/2.5;
+                dings = (float)(time.EllapsedTime.TotalMilliseconds/2.5);
 
                 // Tastatureingabe zu Bewegungsvektor
                 Vector2f move = movement();
                 if (player.isJumping() || !check(player.data, new Vector2f(0, 1), list))
                     move.Y = 0;
-                else
-                    move.Y *= dings;
 
                 //Prüfen ob Hindernis im weg is
                 if (!check(player.data, new Vector2f(move.X, 0), list))
