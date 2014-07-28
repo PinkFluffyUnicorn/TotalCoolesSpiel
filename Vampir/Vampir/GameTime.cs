@@ -29,10 +29,11 @@ using System.Diagnostics;
             TotalTime = TimeSpan.FromSeconds(0);
             EllapsedTime = TimeSpan.FromSeconds(0);
         }
-        public void Update()
+        public double Update()
         {
             EllapsedTime = watch.Elapsed - TotalTime;
             TotalTime = watch.Elapsed;
+            return EllapsedTime.TotalMilliseconds;
         }
     }
 

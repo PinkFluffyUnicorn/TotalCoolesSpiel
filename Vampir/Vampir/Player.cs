@@ -9,29 +9,27 @@ using Vampir;
 
 namespace Vampir
 {
-    class Player
+    class Player : Thing
     {
-        public Creature data;
-        int jumpTime = 0;
+        float jumpTime = 0;
 
-        public Player(string path)
+        public Player(string path, float x, float y)
         {
-            data = new Creature();
             Texture tex = new Texture(path);
-            data.sprite = new Sprite(tex);
-            data.width = tex.Size.X;
-            data.height = tex.Size.Y;
-            data.position = new Vector2f(500, 400);;
+            sprite = new Sprite(tex);
+            width = tex.Size.X;
+            height = tex.Size.Y;
+            position = new Vector2f(x, y);
         }
 
-        public void Update(Vector2f vec, List<Item> list)
+        public void Update(Vector2f vec, List<Thing> list, float speed)
         {
             if (jumpTime == 0)
             {
                 //wenn am fallend, kein sprung, sondern weiter fallen
-                if (Game.check(data, new Vector2f(0, -1), list))
+                if (Game.check(this, new Vector2f(0, -1), list))
                 {
-                    data.position.Y += Const.jumpspeed;
+                    position.Y += Const.jumpspeed * speed;
                 }
                 else
                 {
@@ -47,9 +45,9 @@ namespace Vampir
             if (jumpTime > Const.jumptime - (Const.jumpHeight / Const.jumpspeed))
             {
                 //Überprüfen ob Platz nach oben ist
-                if (Game.check(data, new Vector2f(0, 1), list))
+                if (Game.check(this, new Vector2f(0, 1), list))
                 {
-                    data.position.Y -= Const.jumpspeed;
+                    position.Y -= Const.jumpspeed * speed;
                 }
                 else
                 {
@@ -64,10 +62,10 @@ namespace Vampir
                 if (jumpTime > 0 && jumpTime < (Const.jumpHeight / Const.jumpspeed))
                 {
                     //falls Platz
-                    if (Game.check(data, new Vector2f(0, -1), list))
+                    if (Game.check(this, new Vector2f(0, -1), list))
                     {
                         //fallen
-                        data.position.Y += Const.jumpspeed;
+                        position.Y += Const.jumpspeed * speed;
                     }
                     else
                     {
@@ -76,19 +74,12 @@ namespace Vampir
                     }
                 }
             }
-            jumpTime = System.Math.Max(jumpTime - 1, 0);
+            jumpTime = System.Math.Max(jumpTime - speed, 0);
         }
 
         public bool isJumping()
         {
             return jumpTime > 0;
         }
-
-        public void Draw(RenderWindow window)
-        {
-            data.sprite.Position = data.position;
-            window.Draw(data.sprite);
-        }
-
     }
 }
