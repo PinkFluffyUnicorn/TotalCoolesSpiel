@@ -9,17 +9,14 @@ using SFML.Graphics;
 
 namespace Vampir
 {
-    class Item
+    class Item : Thing
     {
-        public Vector2f _position;
-        Sprite _sprite;
-        public float width, height;
 
         public Item(string path, float X, float Y)
         {
-            _position = new Vector2f(X, Y);
+            position = new Vector2f(X, Y);
             Texture tex = new Texture(path);
-            _sprite = new Sprite(tex);
+            sprite = new Sprite(tex);
 
             width = tex.Size.X;
             height = tex.Size.Y;
@@ -27,13 +24,13 @@ namespace Vampir
 
         public void Update(Vector2f vec)
         {
-            _position.X += vec.X;
+            position.X += vec.X;
         }
 
         public void Draw(RenderWindow window)
         {
-            _sprite.Position = _position;
-            window.Draw(_sprite);
+            sprite.Position = position;
+            window.Draw(sprite);
         }
     }
 }
