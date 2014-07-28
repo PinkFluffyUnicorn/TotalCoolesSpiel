@@ -14,36 +14,20 @@ namespace Vampir
 
         float direction = 1;
 
-        public Werwolf(string Path, Vector2f pos)
+        public Werwolf(string path, float X, float Y)
+            : base(path, X, Y)
         {
-            Texture tex = new Texture(Path);
-            sprite = new Sprite(tex);
-            width = tex.Size.X;
-            height = tex.Size.Y;
-            position = pos;
-
         }
 
-        public void Draw(RenderWindow window)
-        {
-            sprite.Position = position;
-            window.Draw(sprite);
-        }
-
-        public void move(List<Thing> items)
+        public void move(List<Thing> items, Vector2f move, float roundspeed)
         {
             if (Game.check(this, new Vector2f(direction * Const.moveBackward * Const.monsterSpeedfac, 0), items))
-                position.X += -direction * Const.moveBackward * Const.monsterSpeedfac;
+                position.X += direction * Const.moveForward * Const.monsterSpeedfac * roundspeed;
             else
             {
                 direction *= -1;
             }
-                
-        }
-
-        public void update(Vector2f vec)
-        {
-            position.X += vec.X;
+            Update(move); 
         }
     }
 }
