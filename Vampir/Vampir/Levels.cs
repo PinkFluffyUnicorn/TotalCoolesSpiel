@@ -28,7 +28,7 @@ namespace Vampir
                 list.Add(new Item("Graphiken/Item.png", items[i, 0], items[i, 1]));
             }
             levels[0] = new Level(player, map, list, mList);
-
+            
             //LEVEL 2
             player = new Player("Graphiken/Player.png", 400, 0);
             map = new Map();
@@ -40,13 +40,9 @@ namespace Vampir
             mList.Add(new Werwolf("Graphiken/Monster.png", 2400, 0));
             mList.Add(new Werwolf("Graphiken/Monster.png", 3300, 0));
             mList.Add(new Werwolf("Graphiken/Monster.png", 5100, 0));
-            items = new float[,] {{1000,0}};
 
-            for (int i = 0; i < items.GetLength(0); i++)
-            {
-                list.Add(new Item("Graphiken/Item.png", items[i, 0], items[i, 1]));
-            }
-            levels[2] = new Level(player, map, list, mList);
+            list.Add(new Item("Graphiken/Item.png", 100, 0));
+            levels[1] = new Level(player, map, list, mList);
         }
     }
 }

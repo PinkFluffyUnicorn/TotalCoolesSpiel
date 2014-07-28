@@ -43,6 +43,7 @@ namespace Vampir
         static Map map;
         static Player player;
         static Levels level = new Levels();
+        static int index = 0;
 
         public static void Main()
         {
@@ -50,7 +51,7 @@ namespace Vampir
             Sprite sprite = new Sprite(tex);
             sprite.Position = new Vector2f(0, 0);
             
-            loadLevel();
+            loadLevel(index);
 
             GameTime time = new GameTime();
             time.Start();
@@ -72,7 +73,7 @@ namespace Vampir
                 if (Update(move, win, dings))
                 {
                     //win.Draw(sprite);
-                    loadLevel();
+                    loadLevel(index);
                 }
                 else
                 {
@@ -129,7 +130,7 @@ namespace Vampir
 
         static bool Update(Vector2f move, RenderWindow win, float dings)
         {
-            map.Update(move);
+            if ( ! map.Update(move)) loadLevel(++index);
             map.Draw(win);
 
             foreach (Werwolf monster in mList)
@@ -154,13 +155,16 @@ namespace Vampir
             return false;
         }
 
-        static void loadLevel()
+        static void loadLevel(int index)
         {
-            level = new Levels();
-            map = level.levels[0].map;
-            player = level.levels[0].player;
-            list = level.levels[0].list;
-            mList = level.levels[0].mList;
+            if (index < 2) {
+                level = new Levels();
+                map = level.levels[index].map;
+                player = level.levels[index].player;
+                list = level.levels[index].list;
+                mList = level.levels[index].mList;
+            }
+            
         }
     }
 }
