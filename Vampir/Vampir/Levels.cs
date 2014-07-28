@@ -12,6 +12,7 @@ namespace Vampir
 
         public Levels()
         {
+            //LEVEL 1
             Player player = new Player("Graphiken/Player.png", 400, 0);
             Map map = new Map();
             for (int i = 0; i < 2; i++)
@@ -28,6 +29,24 @@ namespace Vampir
             }
             levels[0] = new Level(player, map, list, mList);
 
+            //LEVEL 2
+            player = new Player("Graphiken/Player.png", 400, 0);
+            map = new Map();
+            for (int i = 0; i < 4; i++)
+                map.loadContent(new Vampir.background("Graphiken/hintergrund.png"));
+            list = new List<Thing>();
+            mList = new List<Thing>();
+            mList.Add(new Werwolf("Graphiken/Monster.png", 1500, 0));
+            mList.Add(new Werwolf("Graphiken/Monster.png", 2400, 0));
+            mList.Add(new Werwolf("Graphiken/Monster.png", 3300, 0));
+            mList.Add(new Werwolf("Graphiken/Monster.png", 5100, 0));
+            items = new float[,] {{1000,0}};
+
+            for (int i = 0; i < items.GetLength(0); i++)
+            {
+                list.Add(new Item("Graphiken/Item.png", items[i, 0], items[i, 1]));
+            }
+            levels[2] = new Level(player, map, list, mList);
         }
     }
 }
