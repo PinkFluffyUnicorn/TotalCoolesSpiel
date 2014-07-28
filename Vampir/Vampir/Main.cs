@@ -129,7 +129,7 @@ namespace Vampir
 
         static bool Update(Vector2f move, RenderWindow win, float dings)
         {
-            map.Update(move);
+            if ( ! map.Update(move)) loadLevel();
             map.Draw(win);
 
             foreach (Werwolf monster in mList)

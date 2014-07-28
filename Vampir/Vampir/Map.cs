@@ -53,9 +53,10 @@ namespace Vampir
 
         }
 
-        public void Update(Vector2f movement)
+        public bool Update(Vector2f movement)
         {
             _position.X -= movement.X;
+            if (index == length - 1 && array[index].endposition.X <= _position.X + Const.winWidth) return false;
             if (array[index].endposition.X < _position.X && index < length -1)
             {
                 index++;
@@ -64,6 +65,7 @@ namespace Vampir
             {
                 index --;
             }
+            return true;
         }
 
         public void Draw(RenderWindow window) // only loading 1. background other one still exception :)
