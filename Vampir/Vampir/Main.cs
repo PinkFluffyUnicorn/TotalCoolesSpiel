@@ -42,19 +42,27 @@ namespace Vampir
         static List<Thing> mList = new List<Thing>();
         static Map map;
         static Player player;
+        static Levels level = new Levels();
+
         public static void Main()
         {
+            Texture tex = new Texture("Graphiken/200se.png");
+            Sprite sprite = new Sprite(tex);
+            sprite.Position = new Vector2f(0, 0);
+            
+            loadLevel();
+            /*
             map = new Map();
             for ( int i =0; i < 4; i++)
                 map.loadContent(new Vampir.background("Graphiken/hintergrund.png"));
            // map.loadContent(background);
 
             //SPÄTER AUFRÄUMEN
-            player = new Player("Graphiken/Player.png", 400, 400);
-            Werwolf monster1 = new Werwolf("Graphiken/Monster.png", new Vector2f(1500,400));
-            float[,] items = new float[,] {{1000,400},{1100,400},{1080,300},{680,200},
-            {2000,400},{2000,300},{2000,200},{1500,299},{2100,300},{2200,400}};
-
+            player = new Player("Graphiken/Player.png", 400, 0);
+            Werwolf monster1 = new Werwolf("Graphiken/Monster.png", 1500, 0);
+            float[,] items = new float[,] {{1000,0},{1100,0},{1080,100},{680,200},
+            {2000,0},{2000,100},{2000,200},{1500,200},{2100,100},{2200,0}};
+            
             
             for (int i = 0; i < items.GetLength(0); i++)
             {
@@ -63,13 +71,13 @@ namespace Vampir
 
             // Monsterliste
             mList.Add(monster1);
-            //BIS HIER
+            //BIS HIER*/
 
             GameTime time = new GameTime();
             time.Start();
 
             // Erzeuge ein neues Fenster
-            RenderWindow win = new RenderWindow(new VideoMode(1000, 600), "Mein erstes Fenster");
+            RenderWindow win = new RenderWindow(new VideoMode(Const.winWidth, Const.winHeight), "Mein erstes Fenster");
 
             // Achte darauf, ob Fenster geschlossen wird
             win.Closed += win_Closed;
@@ -82,8 +90,16 @@ namespace Vampir
                 // Tastatureingabe zu Bewegungsvektor
                 Vector2f move = movement()*dings;
                 win.Clear();
-                Update(move, win, dings);
-                win.Display();
+                if (Update(move, win, dings))
+                {
+                    //win.Draw(sprite);
+                    loadLevel();
+                }
+                else
+                {
+                    win.Display();
+                }
+                
                 win.DispatchEvents();
             }
         }
@@ -116,7 +132,7 @@ namespace Vampir
 
         public static bool check(Thing player, Vector2f move, List<Thing> list)
         {
-            if (player.position.Y - move.Y > Const.groundHeight)
+            if (player.position.Y + player.height - move.Y > Const.groundHeight)
                 return false;
 
             foreach (Thing item in list)
@@ -154,12 +170,18 @@ namespace Vampir
 
             if (!check(player, new Vector2f(0, 0), mList))
             {
-                Texture tex = new Texture("Graphiken/200se.png");
-                    Sprite sprite = new Sprite(tex);
-                sprite.Position = new Vector2f(0,0);
-                win.Draw(sprite);
+                return true;
             }
-            return true;
+            return false;
+        }
+
+        static void loadLevel()
+        {
+            level = new Levels();
+            map = level.levels[0].map;
+            player = level.levels[0].player;
+            list = level.levels[0].list;
+            mList = level.levels[0].mList;
         }
     }
 }

@@ -13,13 +13,10 @@ namespace Vampir
     {
         float jumpTime = 0;
 
-        public Player(string path, float x, float y)
+        public Player(string path, float X, float Y)
+            : base(path, X, Y)
         {
-            Texture tex = new Texture(path);
-            sprite = new Sprite(tex);
-            width = tex.Size.X;
-            height = tex.Size.Y;
-            position = new Vector2f(x, y);
+            
         }
 
         public void Update(Vector2f vec, List<Thing> list, float speed)
