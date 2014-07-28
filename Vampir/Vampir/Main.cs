@@ -157,13 +157,12 @@ namespace Vampir
 
         static void loadLevel(int index)
         {
-            if (index < 2) {
-                level = new Levels();
-                map = level.levels[index].map;
-                player = level.levels[index].player;
-                list = level.levels[index].list;
-                mList = level.levels[index].mList;
-            }
+            if (index >= level.levels.Length) index --;
+            level = new Levels();
+            map = level.levels[index].map;
+            player = level.levels[index].player;
+            list = level.levels[index].list;
+            mList = level.levels[index].mList;
             
         }
     }
