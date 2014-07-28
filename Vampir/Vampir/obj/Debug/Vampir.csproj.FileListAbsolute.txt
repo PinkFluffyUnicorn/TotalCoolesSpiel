@@ -15,10 +15,10 @@ C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\csfml-window-2.dl
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\libsndfile-1.dll
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Werwolf.cs
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Graphiken\Monster.png
-C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Graphiken\Player.png
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Main.cs
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Graphiken\hintergrund.png
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Graphiken\Item.png
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\background.cs
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Const.cs
 C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Graphiken\200se.png
+C:\Users\Sara\Documents\Vampire\Vampir\Vampir\Vampir\bin\Debug\Graphiken\Player.png
