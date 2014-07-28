@@ -71,7 +71,7 @@ namespace Vampir
             {
                 time.Update();
 
-                float dings = (float)time.EllapsedTime.TotalMilliseconds/2.5;
+                float dings = (float)(time.EllapsedTime.TotalMilliseconds/2.5);
 
                 // Tastatureingabe zu Bewegungsvektor
                 Vector2f move = movement();
