@@ -21,16 +21,5 @@ namespace Vampir
             width = tex.Size.X;
             height = tex.Size.Y;
         }
-
-        public void Update(Vector2f vec)
-        {
-            position.X += vec.X;
-        }
-
-        public void Draw(RenderWindow window)
-        {
-            sprite.Position = position;
-            window.Draw(sprite);
-        }
     }
 }

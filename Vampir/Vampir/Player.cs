@@ -11,25 +11,25 @@ namespace Vampir
 {
     class Player : Thing
     {
-        int jumpTime = 0;
+        float jumpTime = 0;
 
-        public Player(string path)
+        public Player(string path, float x, float y)
         {
             Texture tex = new Texture(path);
             sprite = new Sprite(tex);
             width = tex.Size.X;
             height = tex.Size.Y;
-            position = new Vector2f(500, 400);;
+            position = new Vector2f(x, y);
         }
 
-        public void Update(Vector2f vec, List<Thing> list)
+        public void Update(Vector2f vec, List<Thing> list, float speed)
         {
             if (jumpTime == 0)
             {
                 //wenn am fallend, kein sprung, sondern weiter fallen
                 if (Game.check(this, new Vector2f(0, -1), list))
                 {
-                    position.Y += Const.jumpspeed;
+                    position.Y += Const.jumpspeed * speed;
                 }
                 else
                 {
@@ -47,7 +47,7 @@ namespace Vampir
                 //Überprüfen ob Platz nach oben ist
                 if (Game.check(this, new Vector2f(0, 1), list))
                 {
-                    position.Y -= Const.jumpspeed;
+                    position.Y -= Const.jumpspeed * speed;
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace Vampir
                     if (Game.check(this, new Vector2f(0, -1), list))
                     {
                         //fallen
-                        position.Y += Const.jumpspeed;
+                        position.Y += Const.jumpspeed * speed;
                     }
                     else
                     {
@@ -74,19 +74,12 @@ namespace Vampir
                     }
                 }
             }
-            jumpTime = System.Math.Max(jumpTime - 1, 0);
+            jumpTime = System.Math.Max(jumpTime - speed, 0);
         }
 
         public bool isJumping()
         {
             return jumpTime > 0;
         }
-
-        public void Draw(RenderWindow window)
-        {
-            sprite.Position = position;
-            window.Draw(sprite);
-        }
-
     }
 }

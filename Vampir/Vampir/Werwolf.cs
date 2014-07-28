@@ -24,26 +24,15 @@ namespace Vampir
 
         }
 
-        public void Draw(RenderWindow window)
-        {
-            sprite.Position = position;
-            window.Draw(sprite);
-        }
-
-        public void move(List<Thing> items)
+        public void move(List<Thing> items, Vector2f move, float roundspeed)
         {
             if (Game.check(this, new Vector2f(direction * Const.moveBackward * Const.monsterSpeedfac, 0), items))
-                position.X += -direction * Const.moveBackward * Const.monsterSpeedfac;
+                position.X += direction * Const.moveForward * Const.monsterSpeedfac * roundspeed;
             else
             {
                 direction *= -1;
             }
-                
-        }
-
-        public void update(Vector2f vec)
-        {
-            position.X += vec.X;
+            Update(move); 
         }
     }
 }
