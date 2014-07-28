@@ -59,6 +59,9 @@
     <Content Include="csfml-window-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Graphiken\200se.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphiken\hintergrund.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -85,9 +88,6 @@
     <Compile Include="Const.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Creature.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="GameTime.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Main.cs">
@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Map.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Thing.cs" />
     <Compile Include="Werwolf.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

@@ -9,32 +9,31 @@ using SFML.Graphics;
 
 namespace Vampir
 {
-    class Werwolf
+    class Werwolf : Thing
     {
-        Creature data;
+
         float direction = 1;
 
         public Werwolf(string Path, Vector2f pos)
         {
-            data = new Creature();
             Texture tex = new Texture(Path);
-            data.sprite = new Sprite(tex);
-            data.width = tex.Size.X;
-            data.height = tex.Size.Y;
-            data.position = pos;
+            sprite = new Sprite(tex);
+            width = tex.Size.X;
+            height = tex.Size.Y;
+            position = pos;
 
         }
 
         public void Draw(RenderWindow window)
         {
-            data.sprite.Position = data.position;
-            window.Draw(data.sprite);
+            sprite.Position = position;
+            window.Draw(sprite);
         }
 
-        public void move(List<Item> items)
+        public void move(List<Thing> items)
         {
-            if (Game.check(data, new Vector2f(direction * Const.moveBackward * Const.monsterSpeedfac, 0), items))
-                data.position.X += -direction * Const.moveBackward * Const.monsterSpeedfac;
+            if (Game.check(this, new Vector2f(direction * Const.moveBackward * Const.monsterSpeedfac, 0), items))
+                position.X += -direction * Const.moveBackward * Const.monsterSpeedfac;
             else
             {
                 direction *= -1;
@@ -44,7 +43,7 @@ namespace Vampir
 
         public void update(Vector2f vec)
         {
-            data.position.X += vec.X;
+            position.X += vec.X;
         }
     }
 }

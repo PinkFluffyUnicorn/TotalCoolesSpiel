@@ -50,11 +50,15 @@ namespace Vampir
             float[,] items = new float[,] {{1000,400},{1100,400},{1080,300},{680,200},
             {2000,400},{2000,300},{2000,200},{1500,299},{2100,300},{2200,400}};
 
-            List<Vampir.Item> list = new List<Vampir.Item>();
+            List<Thing> list = new List<Thing>();
             for (int i = 0; i < items.GetLength(0); i++)
             {
                 list.Add(new Item("Graphiken/Item.png", items[i, 0], items[i,  1]));
             }
+
+            // Monsterliste
+            List<Thing> mList = new List<Thing>();
+            mList.Add(monster);
             //BIS HIER
 
             GameTime time = new GameTime();
@@ -75,37 +79,41 @@ namespace Vampir
 
                 // Tastatureingabe zu Bewegungsvektor
                 Vector2f move = movement();
-                if (player.isJumping() || !check(player.data, new Vector2f(0, 1), list))
+                if (player.isJumping() || !check(player, new Vector2f(0, 1), list))
                     move.Y = 0;
                 else
                     move.Y *= dings;
 
                 //Prüfen ob Hindernis im weg is
-                if (!check(player.data, new Vector2f(move.X, 0), list))
+                if (!check(player, new Vector2f(move.X, 0), list))
                     move.X = 0;
                 else
                     move.X *= dings;
 
                 monster.move(list);
-
+                win.Clear();
+                map.Update(move);
+                map.Draw(win);
+                monster.update(move);
+                    
+                    
+                foreach (Vampir.Item item in list)
                 {
-                    win.Clear();
-                    map.Update(move);
-                    map.Draw(win);
-                    monster.update(move);
-                    
-                    
-                    foreach (Vampir.Item item in list)
-                    {
-                        item.Update(move);
-                        item.Draw(win);
-                    }
-
-                    player.Update(move, list);
-                    player.Draw(win);
-                    monster.Draw(win);
-                    win.Display();
+                    item.Update(move);
+                    item.Draw(win);
                 }
+
+                player.Update(move, list);
+                player.Draw(win);
+                monster.Draw(win);
+                if (!check(player, new Vector2f(0, 0), mList))
+                {
+                    Texture tex = new Texture("Graphiken/200se.png");
+                        Sprite sprite = new Sprite(tex);
+                    sprite.Position = new Vector2f(0,0);
+                    win.Draw(sprite);
+                }
+                win.Display();
                 win.DispatchEvents();
 
             }
@@ -130,18 +138,18 @@ namespace Vampir
             (sender as Window).Close();
         }
 
-        public static bool check(Creature player, Vector2f move, List<Item> list)
+        public static bool check(Thing player, Vector2f move, List<Thing> list)
         {
             if (player.position.Y - move.Y > Const.groundHeight)
                 return false;
 
-            foreach (Item item in list)
+            foreach (Thing item in list)
             {
                 //Kollision von Rechtecken
-                if (player.position.X  - move.X < item._position.X + item.width &&
-                    item._position.X < player.position.X - move.X + player.width &&
-                    player.position.Y - move.Y < item._position.Y + item.height &&
-                    item._position.Y < player.position.Y - move.Y + player.height
+                if (player.position.X  - move.X < item.position.X + item.width &&
+                    item.position.X < player.position.X - move.X + player.width &&
+                    player.position.Y - move.Y < item.position.Y + item.height &&
+                    item.position.Y < player.position.Y - move.Y + player.height
                     ) return false;
             }
 
