@@ -18,9 +18,8 @@ namespace Vampir
         public float width;
         enum tmp { up, down, left, right };
 
-        public Thing(string path, Thing obj, int dir)
+        public Thing(Texture tex, Thing obj, int dir)
         {
-            Texture tex = new Texture(path);
             sprite = new Sprite(tex);
             width = tex.Size.X;
             height = tex.Size.Y;
@@ -42,9 +41,8 @@ namespace Vampir
                     break;
             }
         }
-        public Thing(string path, float X, float Y)
+        public Thing(Texture tex, float X, float Y)
         {
-            Texture tex = new Texture(path);
             sprite = new Sprite(tex);
             width = tex.Size.X;
             height = tex.Size.Y;

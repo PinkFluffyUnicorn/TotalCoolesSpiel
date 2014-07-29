@@ -11,11 +11,13 @@ namespace Vampir
 {
     class Item : Thing
     {
-        public Item(string path, float X, float Y) : base(path, X, Y)
+        public Item(Texture tex, float X, float Y)
+            : base(tex, X, Y)
         {
         }
 
-        public Item(string path, Item item, int dir) : base(path, item, dir)
+        public Item(Texture tex, Item item, int dir)
+            : base(tex, item, dir)
         {
 
         }

@@ -13,8 +13,8 @@ namespace Vampir
     {
         float jumpTime = 0;
 
-        public Player(string path, float X, float Y)
-            : base(path, X, Y)
+        public Player(Texture tex, float X, float Y)
+            : base(tex, X, Y)
         {
             
         }
