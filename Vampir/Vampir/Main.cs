@@ -39,7 +39,7 @@ namespace Vampir
         // Wird für Programm ablauf benötigt
 
         static Level map;
-        static Levels level = new Levels();
+        static Levels level = new Levels(0);
         static int index = 0;
         static float count;
 
@@ -170,7 +170,7 @@ namespace Vampir
         static void loadLevel(int index)
         {
             if (index >= level.levels.Length) index --;
-            level = new Levels();
+            level = new Levels(index);
             map = level.levels[index];
             count = Const.startLevel;
             
