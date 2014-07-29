@@ -21,6 +21,7 @@ namespace Vampir
         public static float monsterSpeedfac = 0.7f;
         public static float moveForward = -moveSpeed;
         public static float moveBackward = moveSpeed;
+        public static float startLevel = 300;
 
     }
 }

@@ -38,18 +38,18 @@ namespace Vampir
 
         // Wird für Programm ablauf benötigt
 
-        static List<Thing> list = new List<Thing>();
-        static List<Thing> mList = new List<Thing>();
-        static Map map;
-        static Player player;
+        static Level map;
         static Levels level = new Levels();
         static int index = 0;
+        static float count;
+
 
         public static void Main()
         {
             Texture tex = new Texture("Graphiken/200se.png");
             Sprite sprite = new Sprite(tex);
             sprite.Position = new Vector2f(0, 0);
+
             
             loadLevel(index);
 
@@ -83,6 +83,8 @@ namespace Vampir
                 win.DispatchEvents();
             }
         }
+         
+
 
         static Vector2f movement()
         {
@@ -94,11 +96,11 @@ namespace Vampir
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space) || Keyboard.IsKeyPressed(Keyboard.Key.Up))
                 vec.Y = Const.jumpHeight;
 
-            if (player.isJumping() || !check(player, new Vector2f(0, 1), list))
+            if (map.player.isJumping() || !check(map.player, new Vector2f(0, 1), map.list))
                 vec.Y = 0;
 
             //Prüfen ob Hindernis im weg is
-            if (!check(player, new Vector2f(vec.X, 0), list))
+            if (!check(map.player, new Vector2f(vec.X, 0), map.list))
                 vec.X = 0;
 
             return vec;
@@ -130,25 +132,35 @@ namespace Vampir
 
         static bool Update(Vector2f move, RenderWindow win, float dings)
         {
-            if ( ! map.Update(move)) loadLevel(++index);
-            map.Draw(win);
-
-            foreach (Werwolf monster in mList)
+            if (!map.map.Update(move))
             {
-                monster.move(list, move, dings);
+                loadLevel(++index);
+            }
+            map.map.Draw(win);
+
+            foreach (Werwolf monster in map.mList)
+            {
+                monster.move(map.list, move, dings);
                 monster.Draw(win);
             }
                     
-            foreach (Vampir.Item item in list)
+            foreach (Vampir.Item item in map.list)
             {
                 item.Update(move);
                 item.Draw(win);
             }
 
-            player.Update(move, list, dings);
-            player.Draw(win);
+            map.player.Update(move, map.list, dings);
+            map.player.Draw(win);
 
-            if (!check(player, new Vector2f(0, 0), mList))
+            if (count > 0)
+            {
+                win.Draw(map.sprite);
+                count-= dings;
+            }
+
+
+            if (!check(map.player, new Vector2f(0, 0), map.mList))
             {
                 return true;
             }
@@ -159,10 +171,8 @@ namespace Vampir
         {
             if (index >= level.levels.Length) index --;
             level = new Levels();
-            map = level.levels[index].map;
-            player = level.levels[index].player;
-            list = level.levels[index].list;
-            mList = level.levels[index].mList;
+            map = level.levels[index];
+            count = Const.startLevel;
             
         }
     }
