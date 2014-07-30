@@ -68,7 +68,7 @@ namespace Vampir
 
                 float dings = (float)(time.Update()/2.5);
                 // Tastatureingabe zu Bewegungsvektor
-                Vector2f move = movement()*dings;
+                Vector2f move = movement(dings);
                 win.Clear();
                 if (Update(move, win, dings))
                 {
@@ -86,7 +86,7 @@ namespace Vampir
          
 
 
-        static Vector2f movement()
+        static Vector2f movement(float speed)
         {
             Vector2f vec = new Vector2f(0, 0);
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
@@ -95,6 +95,7 @@ namespace Vampir
                 vec.X = Const.moveForward;
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space) || Keyboard.IsKeyPressed(Keyboard.Key.Up))
                 vec.Y = Const.jumpHeight;
+            vec *= speed;
 
             if (map.player.isJumping() || !check(map.player, new Vector2f(0, 1), map.list))
                 vec.Y = 0;

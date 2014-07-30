@@ -24,7 +24,7 @@ namespace Vampir
             if (jumpTime == 0)
             {
                 //wenn am fallend, kein sprung, sondern weiter fallen
-                if (Game.check(this, new Vector2f(0, -1), list))
+                if (Game.check(this, new Vector2f(0, -(Const.jumpspeed * speed)), list))
                 {
                     position.Y += Const.jumpspeed * speed;
                 }
@@ -42,7 +42,7 @@ namespace Vampir
             if (jumpTime > Const.jumptime - (Const.jumpHeight / Const.jumpspeed))
             {
                 //Überprüfen ob Platz nach oben ist
-                if (Game.check(this, new Vector2f(0, 1), list))
+                if (Game.check(this, new Vector2f(0, (Const.jumpspeed * speed)), list))
                 {
                     position.Y -= Const.jumpspeed * speed;
                 }
@@ -59,7 +59,7 @@ namespace Vampir
                 if (jumpTime > 0 && jumpTime < (Const.jumpHeight / Const.jumpspeed))
                 {
                     //falls Platz
-                    if (Game.check(this, new Vector2f(0, -1), list))
+                    if (Game.check(this, new Vector2f(0, -(Const.jumpspeed * speed)), list))
                     {
                         //fallen
                         position.Y += Const.jumpspeed * speed;
