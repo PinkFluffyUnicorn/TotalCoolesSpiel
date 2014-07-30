@@ -23,11 +23,11 @@ namespace Vampir
         {
             if (position.X > -Const.winWidth && position.X < 2 * Const.winWidth)
             {
-                if (Game.check(this, new Vector2f(0, -1), items))
+                if (Game.check(this, new Vector2f(0, -(Const.jumpspeed * speed)), items))
                 {
                     position.Y += Const.jumpspeed * speed;
                 }
-                if (Game.check(this, new Vector2f(direction * Const.moveBackward * Const.monsterSpeedfac, 0), items))
+                if (Game.check(this, new Vector2f(direction * Const.moveBackward * Const.monsterSpeedfac * speed, 0), items))
                     position.X += direction * Const.moveForward * Const.monsterSpeedfac * speed;
                 else
                 {
