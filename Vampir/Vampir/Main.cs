@@ -38,26 +38,20 @@ namespace Vampir
 
         // Wird für Programm ablauf benötigt
 
-        static Level map;
-        static Levels level = new Levels(0);
-        static int index = 0;
-        static float count;
-
+        static Level level = new Levels(0).level;
+        public static int index = 0;
+        public static float count;
+        static bool create = false;
 
         public static void Main()
         {
-            Texture tex = new Texture("Graphiken/200se.png");
-            Sprite sprite = new Sprite(tex);
-            sprite.Position = new Vector2f(0, 0);
-
-            
             loadLevel(index);
 
             GameTime time = new GameTime();
             time.Start();
 
             // Erzeuge ein neues Fenster
-            RenderWindow win = new RenderWindow(new VideoMode(Const.winWidth, Const.winHeight), "Mein erstes Fenster");
+            RenderWindow win = new RenderWindow(new VideoMode(Const.winWidth, Const.winHeight), "Vampir");
 
             // Achte darauf, ob Fenster geschlossen wird
             win.Closed += win_Closed;
@@ -65,29 +59,48 @@ namespace Vampir
             // Das eigentliche Spiel
             while (win.IsOpen())
             {
+                //Zeit eines Schleifendurchlaufs durch 2.5
+                //Sorgt für ca gleiche Geschwindigkeit auf unterschiedlichen Rechnern
+                float roundspeed = (float)(time.Update() / 2.5);
 
-                float dings = (float)(time.Update()/2.5);
                 // Tastatureingabe zu Bewegungsvektor
-                Vector2f move = movement(dings);
+                Vector2f move = movement(roundspeed);
+
                 win.Clear();
-                if (Update(move, win, dings))
-                {
-                    //win.Draw(sprite);
-                    loadLevel(index);
-                }
-                else
+
+                //Update = false, wenn Spieler gestorben
+                if (level.Update(move, win, roundspeed))
                 {
                     win.Display();
                 }
-                
+                else
+                {
+                    loadLevel(index);
+                }
+
                 win.DispatchEvents();
+
+                if (create)
+                {
+                    win.Close();
+                    CreateLevel muh = new CreateLevel();
+                    muh.create();
+                    break;
+                }
             }
+            time.Stop();
         }
          
 
 
         static Vector2f movement(float speed)
         {
+            //führt in den Modus um Level zu erstellen
+            if (Keyboard.IsKeyPressed(Keyboard.Key.M) && Keyboard.IsKeyPressed(Keyboard.Key.U) && Keyboard.IsKeyPressed(Keyboard.Key.H))
+            {
+                create = true;
+            }
+
             Vector2f vec = new Vector2f(0, 0);
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
                 vec.X = Const.moveBackward;
@@ -97,12 +110,18 @@ namespace Vampir
                 vec.Y = Const.jumpHeight;
             vec *= speed;
 
-            if (map.player.isJumping() || !check(map.player, new Vector2f(0, 1), map.list))
+            //Wenn am Springen oder kein Platz nach Oben vorhanden, kein neuen Sprung einleiten
+            if (level.player.isJumping() || !check(level.player, new Vector2f(0, speed), level.list))
                 vec.Y = 0;
 
             //Prüfen ob Hindernis im weg is
-            if (!check(map.player, new Vector2f(vec.X, 0), map.list))
+            if (!check(level.player, new Vector2f(vec.X, 0), level.list))
                 vec.X = 0;
+
+            if (level.map.isLeft(vec.X))
+            {
+                vec.X = 0;
+            }
 
             return vec;
         }
@@ -115,6 +134,7 @@ namespace Vampir
 
         public static bool check(Thing player, Vector2f move, List<Thing> list)
         {
+            //Kollision nach unten, fürs runterfallen bis zum Boden
             if (player.position.Y + player.height - move.Y > Const.groundHeight)
                 return false;
 
@@ -131,48 +151,10 @@ namespace Vampir
             return true;
         }
 
-        static bool Update(Vector2f move, RenderWindow win, float dings)
+        public static void loadLevel(int index)
         {
-            if (!map.map.Update(move))
-            {
-                loadLevel(++index);
-            }
-            map.map.Draw(win);
-
-            foreach (Werwolf monster in map.mList)
-            {
-                monster.move(map.list, move, dings);
-                monster.Draw(win);
-            }
-                    
-            foreach (Vampir.Item item in map.list)
-            {
-                item.Update(move);
-                item.Draw(win);
-            }
-
-            map.player.Update(move, map.list, dings);
-            map.player.Draw(win);
-
-            if (count > 0)
-            {
-                win.Draw(map.sprite);
-                count-= dings;
-            }
-
-
-            if (!check(map.player, new Vector2f(0, 0), map.mList))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        static void loadLevel(int index)
-        {
-            if (index >= level.levels.Length) index --;
-            level = new Levels(index);
-            map = level.levels[index];
+            if (index >= Levels.levelNumber) index --;
+            level = new Levels(index).level;
             count = Const.startLevel;
             
         }

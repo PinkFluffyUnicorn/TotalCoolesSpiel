@@ -11,7 +11,8 @@ namespace Vampir
 {
     class Levels
     {
-        public Level[] levels = new Level[2];
+        public Level level;
+        public static int levelNumber = 2;
 
         public Levels(int index)
         {
@@ -59,7 +60,7 @@ namespace Vampir
                         {
                             list.Add(new Item(item_tex, items[i, 0], items[i, 1]));
                         }
-                        levels[0] = new Level(player, map, list, mList, "Graphiken/Level1.png");
+                        level = new Level(player, map, list, mList, "Graphiken/Level1.png");
                     }
                     break;
                 default:
@@ -90,7 +91,7 @@ namespace Vampir
                         {
                             mList.Add(new Werwolf(monster_tex, monster[i, 0], monster[i, 1]));
                         }
-                        levels[1] = new Level(player, map, list, mList, "Graphiken/Level1.png");
+                        level = new Level(player, map, list, mList, "Graphiken/Level1.png");
                     }
                     break;
 

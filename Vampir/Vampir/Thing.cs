@@ -18,6 +18,11 @@ namespace Vampir
         public float width;
         enum tmp { up, down, left, right };
 
+        public Thing()
+        {
+
+        }
+
         public Thing(Texture tex, Thing obj, int dir)
         {
             sprite = new Sprite(tex);

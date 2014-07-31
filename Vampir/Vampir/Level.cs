@@ -37,5 +37,41 @@ namespace Vampir
             sprite = new Sprite(t);
         }
 
+        public bool Update(Vector2f move, RenderWindow win, float roundspeed)
+        {
+            if (!map.Update(move))
+            {
+                Game.loadLevel(++Game.index);
+            }
+            map.Draw(win);
+
+            foreach (Werwolf monster in mList)
+            {
+                monster.move(list, move, roundspeed);
+                monster.Draw(win);
+            }
+
+            foreach (Vampir.Item item in list)
+            {
+                item.Update(move);
+                item.Draw(win);
+            }
+
+            player.Update(move, list, roundspeed);
+            player.Draw(win);
+
+            if (Game.count > 0)
+            {
+                win.Draw(sprite);
+                Game.count -= roundspeed;
+            }
+
+
+            if (!Game.check(player, new Vector2f(0, 0), mList))
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

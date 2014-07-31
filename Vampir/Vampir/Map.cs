@@ -68,6 +68,11 @@ namespace Vampir
             return true;
         }
 
+        public bool isLeft(float moveX)
+        {
+            return _position.X - moveX <= 0;
+        }
+
         public void Draw(RenderWindow window) // only loading 1. background other one still exception :)
         {
             array[index].Draw(window, _position);

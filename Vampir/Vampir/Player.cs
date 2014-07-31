@@ -13,6 +13,11 @@ namespace Vampir
     {
         float jumpTime = 0;
 
+        public Player()
+        {
+
+        }
+
         public Player(Texture tex, float X, float Y)
             : base(tex, X, Y)
         {
